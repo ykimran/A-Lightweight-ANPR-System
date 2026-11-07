@@ -1,0 +1,84 @@
+import cv2
+import easyocr
+import numpy as np
+import matplotlib.pyplot as plt
+from google.colab import files
+
+# Step 3: Upload image
+print("📷 Please upload an image containing a vehicle number plate:")
+uploaded = files.upload()
+
+for fn in uploaded.keys():
+    image_path = fn
+    print(f"Image uploaded: {image_path}")
+
+# Step 4: Read and preprocess image
+image = cv2.imread(image_path)
+if image is None:
+    raise ValueError("Error reading image. Please upload a valid image file.")
+
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Apply bilateral filter to reduce noise while keeping edges sharp
+gray = cv2.bilateralFilter(gray, 11, 17, 17)
+
+# Edge detection
+edged = cv2.Canny(gray, 30, 200)
+
+# Find contours
+cnts, _ = cv2.findContours(edged.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+cnts = sorted(cnts, key=cv2.contourArea, reverse=True)[:10]
+
+screenCnt = None
+
+# Try to find a contour with 4 corners (possible plate)
+for c in cnts:
+    peri = cv2.arcLength(c, True)
+    approx = cv2.approxPolyDP(c, 0.018 * peri, True)
+    if len(approx) == 4:
+        screenCnt = approx
+        break
+
+# Step 5: Crop detected plate region
+if screenCnt is not None:
+    mask = np.zeros(gray.shape, np.uint8)
+    new_image = cv2.drawContours(mask, [screenCnt], 0, 255, -1)
+    new_image = cv2.bitwise_and(image, image, mask=mask)
+
+    (x, y) = np.where(mask == 255)
+    (topx, topy) = (np.min(x), np.min(y))
+    (bottomx, bottomy) = (np.max(x), np.max(y))
+    cropped = gray[topx:bottomx+1, topy:bottomy+1]
+
+    plt.imshow(cv2.cvtColor(cropped, cv2.COLOR_BGR2RGB))
+    plt.title("Detected Number Plate")
+    plt.axis('off')
+    plt.show()
+else:
+    print("No number plate contour detected. Using full image for OCR.")
+    cropped = gray
+
+# Step 6: OCR recognition using EasyOCR
+reader = easyocr.Reader(['en'])
+result = reader.readtext(cropped)
+
+# Step 7: Display results
+text = ""
+for detection in result:
+    text += detection[1] + " "
+
+print(f"\nDetected Text: {text.strip()}")
+
+# Optional: visualize detections on original image
+for (bbox, text, prob) in result:
+    (top_left, top_right, bottom_right, bottom_left) = bbox
+    top_left = tuple(map(int, top_left))
+    bottom_right = tuple(map(int, bottom_right))
+    cv2.rectangle(image, top_left, bottom_right, (0, 255, 0), 2)
+    cv2.putText(image, text, (top_left[0], top_left[1] - 10),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.9, (36,255,12), 2)
+
+plt.imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
+plt.title(f"Detected Number Plate: {text}")
+plt.axis('off')
+plt.show()

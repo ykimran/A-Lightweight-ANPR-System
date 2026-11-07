@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lightweight-anpr"
+version = "0.1.0"
+description = "Contour-based number plate localization with EasyOCR"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24,<3", "opencv-python-headless>=4.8,<5", "easyocr>=1.7,<2"]
+
+[project.scripts]
+anpr = "anpr.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
