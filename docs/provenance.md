@@ -12,6 +12,4 @@ The Python package, notebook, README, tests, and Markdown documentation are newl
 
 Pipeline tests use synthetic images and a stub OCR reader. Recognition accuracy and model runtime require a separate end-to-end run with EasyOCR weights. No license or authorship rights to third-party sample images are inferred from their presence in the archive.
 
-Academic document files are withheld from the public repository pending confirmation about publication of identifying student details.
-
-Original vehicle images are withheld pending confirmation about public publication of identifiable license plates. The synthetic fixture generator creates an artificial rectangle and DEMO 123 text, not a vehicle photograph.
+The selected report V3, presentation V3 (PDF and PowerPoint), presentation script, code explanation, and original Samples directory are included with explicit publication confirmation on 7 November 2026. Documents and sample images are copied without content changes. Separately supplied presentation and script files are used for their respective destinations. The synthetic fixture generator creates an artificial rectangle and DEMO 123 text, not a vehicle photograph.

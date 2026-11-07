@@ -66,7 +66,7 @@ The baseline retains the supplied parameters: bilateral filter `(11, 17, 17)`, C
 
 A four-sided contour is only a heuristic: bodywork, windows, and signs can be selected. The implementation does not apply aspect-ratio filtering, perspective correction, plate-format validation, or video tracking. Low light, blur, complex backgrounds, oblique plates, and Bangla text remain known limitations. See [methodology](docs/methodology.md).
 
-The supplied vehicle samples are withheld pending confirmation about public publication of identifiable plates. The generated synthetic fixture is not a benchmark. No numerical accuracy, FPS, or benchmark claim is made. A fresh end-to-end OCR evaluation is still required.
+Supplied vehicle images are available in [samples](samples/). The generated synthetic fixture is not a benchmark. No numerical accuracy, FPS, or benchmark claim is made. A fresh end-to-end OCR evaluation is still required.
 
 ## Tests
 
@@ -84,8 +84,12 @@ Potential extensions from the report include skew correction, low-light enhancem
 
 This repository contains academic project materials and supplied example images. An open-source license has not been selected. Third-party image ownership and redistribution terms have not been verified; confirm permissions before reusing or redistributing those assets. Dependencies retain their own licenses.
 
-## Pending source materials
+## Source materials
 
-The supplied report, presentation, script, and code explanation are pending publication because the materials contain identifying student details. They are not included in this public repository yet.
-Original vehicle sample images are also withheld pending confirmation about public publication of identifiable license plates.
+- [Project report V3](docs/source/Report_V3.pdf)
+- [Presentation V3 (PDF)](docs/source/Presentation_V3.pdf) · [PowerPoint](docs/source/Presentation_V3.pptx)
+- [Presentation script](docs/source/Presentation_Script.pdf)
+- [Code explanation](docs/source/Code_Explanation.pdf)
+- [Original vehicle samples](samples/)
 
+These are supplied academic materials, published with the repository owner's explicit confirmation on 7 November 2026. Historical results have not been independently reproduced.

@@ -1,6 +1,8 @@
 # Sample images
 
-The supplied real vehicle images are withheld pending confirmation about public publication of identifiable license plates. Create a synthetic fixture with:
+The supplied real vehicle images are included with explicit publication confirmation. The Success and Error labels are inherited from the original archive and are not independently verified benchmark labels.
+
+Create an additional synthetic fixture with:
 
 ```bash
 python scripts/create_demo_image.py
